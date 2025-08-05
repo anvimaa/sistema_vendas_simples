@@ -1,7 +1,7 @@
 # Relatório Técnico - Mini Protótipo Web para Registo e Visualização de Vendas em Microempresas
 
-**Autor:** Manus AI  
-**Data:** Janeiro 2024  
+**Autor:** Amantente Soft, Comércio e Serviços, LDA  
+**Data:** Agosto, 2025  
 **Versão:** 1.0
 
 ---
@@ -144,7 +144,7 @@ O sistema permite adicionar e remover itens dinamicamente, com cada item contend
 - Nome do produto ou serviço
 - Quantidade (mínimo 1)
 - Preço unitário em euros
-- Percentagem de imposto (padrão 23% - IVA português)
+- Percentagem de imposto (padrão 14% - IVA Imposto de Valor Acrescentado)
 - Percentagem de desconto (0-100%)
 - Cálculo automático do subtotal por item
 

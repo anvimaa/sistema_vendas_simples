@@ -158,8 +158,8 @@ class SistemaVendas {
                             <i class="fas fa-percentage"></i> Imposto (%)
                         </label>
                         <input type="number" name="imposto_${itemIndex}" 
-                               step="0.01" min="0" max="100" value="23" 
-                               placeholder="23,00" class="calc-field">
+                               step="0.01" min="0" max="100" value="14" 
+                               placeholder="14,00" class="calc-field">
                     </div>
 
                     <div class="form-group">
@@ -750,7 +750,7 @@ class SistemaVendas {
                         produto: 'Consulta de Marketing',
                         quantidade: 1,
                         preco: 150.00,
-                        imposto: 23,
+                        imposto: 14,
                         desconto: 0
                     }
                 ],
@@ -772,14 +772,14 @@ class SistemaVendas {
                         produto: 'Website Corporativo',
                         quantidade: 1,
                         preco: 800.00,
-                        imposto: 23,
+                        imposto: 14,
                         desconto: 10
                     },
                     {
                         produto: 'Hosting Anual',
                         quantidade: 1,
                         preco: 120.00,
-                        imposto: 23,
+                        imposto: 14,
                         desconto: 0
                     }
                 ],
