@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+    <title>Sistema de Vendas para Microempresas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Sistema de Vendas</div>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-item active" data-page="dashboard">Dashboard</a></li>
+                <li><a href="#" class="nav-item" data-page="registrar-venda">Registrar Venda</a></li>
+                <li><a href="#" class="nav-item" data-page="ver-vendas">Ver Vendas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Dashboard -->
+        <section id="dashboard" class="page active">
+            <h2>Dashboard de Vendas</h2>
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-header">Total de Vendas</div>
+                    <div class="card-value">€<span id="total-vendas">0.00</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Número de Vendas</div>
+                    <div class="card-value"><span id="numero-vendas">0</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Média por Venda</div>
+                    <div class="card-value">€<span id="media-vendas">0.00</span></div>
+                </div>
+            </div>
+
+            <div class="recent-sales">
+                <h3>Vendas Recentes</h3>
+                <div class="table-container">
+                    <table id="recentes-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Cliente</th>
+                                <th>Produto</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vendas-recentes">
+                            <!-- Aqui serão exibidas as vendas recentes via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulário de Registro de Vendas -->
+        <section id="registrar-venda" class="page">
+            <h2>Registrar Nova Venda</h2>
+            <form id="venda-form" class="form-container">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cliente">Cliente:</label>
+                        <input type="text" id="cliente" required>
+                        <span class="validation-message" id="cliente-validation"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="nif">NIF:</label>
+                        <input type="text" id="nif" required>
+                        <span class="validation-message" id="nif-validation"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="data">Data:</label>
+                        <input type="date" id="data" required>
+                        <span class="validation-message" id="data-validation"></span>
+                    </div>
+                </div>
+
+                <div id="produtos-container">
+                    <h3>Produtos</h3>
+                    <div class="produto-item">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="produto-0">Produto:</label>
+                                <input type="text" id="produto-0" class="produto-nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidade-0">Quantidade:</label>
+                                <input type="number" id="quantidade-0" class="quantidade" min="1" value="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="preco-0">Preço Unitário (€):</label>
+                                <input type="number" id="preco-0" class="preco" min="0.01" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="imposto-0">Imposto (%):</label>
+                                <input type="number" id="imposto-0" class="imposto" min="0" max="100" step="0.1"
+                                    value="23" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="desconto-0">Desconto (%):</label>
+                                <input type="number" id="desconto-0" class="desconto" min="0" max="100" step="0.1"
+                                    value="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subtotal-0">Subtotal (€):</label>
+                                <input type="text" id="subtotal-0" class="subtotal" readonly value="0.00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" id="adicionar-produto" class="btn btn-secondary">
+                        <span class="material-icons">add</span>Adicionar Produto
+                    </button>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group payment-method">
+                        <label for="metodo-pagamento">Método de Pagamento:</label>
+                        <select id="metodo-pagamento" required>
+                            <option value="">Selecione um método</option>
+                            <option value="dinheiro">Dinheiro</option>
+                            <option value="cartao">Cartão de Débito/Crédito</option>
+                            <option value="transferencia">Transferência Bancária</option>
+                            <option value="mbway">MB WAY</option>
+                        </select>
+                        <span class="validation-message" id="pagamento-validation"></span>
+                    </div>
+                </div>
+
+                <div class="form-total">
+                    <div class="total-label">Total da Venda:</div>
+                    <div class="total-value">€<span id="total-value">0.00</span></div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Registrar Venda</button>
+                    <button type="reset" class="btn btn-outline">Limpar Formulário</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Visualização de Vendas -->
+        <section id="ver-vendas" class="page">
+            <h2>Gestão de Vendas</h2>
+
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="filtro-cliente">Filtrar por Cliente:</label>
+                    <input type="text" id="filtro-cliente" placeholder="Nome do cliente...">
+                </div>
+                <div class="filter-group">
+                    <label for="filtro-data-inicio">Período:</label>
+                    <div class="date-range">
+                        <input type="date" id="filtro-data-inicio">
+                        <span>até</span>
+                        <input type="date" id="filtro-data-fim">
+                    </div>
+                </div>
+                <div class="filter-group filter-actions">
+                    <button id="aplicar-filtros" class="btn btn-secondary">Aplicar Filtros</button>
+                    <button id="limpar-filtros" class="btn btn-outline">Limpar Filtros</button>
+                </div>
+            </div>
+
+            <div class="table-actions">
+                <button id="exportar-csv" class="btn btn-secondary">
+                    <span class="material-icons">download</span>Exportar CSV
+                </button>
+                <button id="limpar-todas-vendas" class="btn btn-danger">
+                    <span class="material-icons">delete</span>Remover Todas
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table id="vendas-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Cliente</th>
+                            <th>Produtos</th>
+                            <th>Total</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vendas-tbody">
+                        <!-- Aqui serão exibidas as vendas via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="no-data" class="hidden">
+                <p>Nenhuma venda encontrada. Comece registrando uma nova venda.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sistema de Vendas para Microempresas | Desenvolvido como protótipo educacional</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
