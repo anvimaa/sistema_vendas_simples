@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Vendas - Microempresa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-store"></i> Sistema de Vendas</h1>
+            <p>Gestão simplificada para microempresas</p>
+        </header>
+
+        <nav class="navigation">
+            <button class="nav-btn active" data-section="dashboard">
+                <i class="fas fa-chart-line"></i> Dashboard
+            </button>
+            <button class="nav-btn" data-section="registro">
+                <i class="fas fa-plus-circle"></i> Registar Venda
+            </button>
+            <button class="nav-btn" data-section="vendas">
+                <i class="fas fa-list"></i> Ver Vendas
+            </button>
+        </nav>
+
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="dashboard-grid">
+                    <div class="card stats-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-euro-sign"></i> Total de Vendas</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="stat-value" id="totalVendas">AOA0,00</div>
+                            <div class="stat-label">Valor total acumulado</div>
+                        </div>
+                    </div>
+
+                    <div class="card stats-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-shopping-cart"></i> Número de Vendas</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="stat-value" id="numeroVendas">0</div>
+                            <div class="stat-label">Vendas registadas</div>
+                        </div>
+                    </div>
+
+                    <div class="card stats-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-bar"></i> Média por Venda</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="stat-value" id="mediaVenda">AOA0,00</div>
+                            <div class="stat-label">Valor médio</div>
+                        </div>
+                    </div>
+
+                    <div class="card recent-sales">
+                        <div class="card-header">
+                            <h3><i class="fas fa-clock"></i> Vendas Recentes</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="vendasRecentes">
+                                <p class="no-data">Nenhuma venda registada ainda</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Registro Section -->
+            <section id="registro" class="section">
+                <div class="form-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-plus-circle"></i> Registar Nova Venda</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="vendaForm">
+                                <!-- Dados do Cliente -->
+                                <div class="section-header">
+                                    <h3><i class="fas fa-user"></i> Dados do Cliente</h3>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="cliente">
+                                            <i class="fas fa-user"></i> Nome do Cliente
+                                        </label>
+                                        <input type="text" id="cliente" name="cliente" required
+                                            placeholder="Digite o nome do cliente">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nif">
+                                            <i class="fas fa-id-card"></i> NIF do Cliente
+                                        </label>
+                                        <input type="text" id="nif" name="nif" required placeholder="123456789"
+                                            pattern="[0-9]{9}" maxlength="9">
+                                    </div>
+                                </div>
+
+                                <!-- Itens da Venda -->
+                                <div class="section-header">
+                                    <h3><i class="fas fa-shopping-cart"></i> Itens da Venda</h3>
+                                    <button type="button" class="btn btn-outline" id="addItemBtn">
+                                        <i class="fas fa-plus"></i> Adicionar Item
+                                    </button>
+                                </div>
+
+                                <div id="itensContainer">
+                                    <div class="item-row" data-item="0">
+                                        <div class="item-header">
+                                            <span>Item 1</span>
+                                            <button type="button" class="btn-remove-item" data-item="0">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>
+                                                <i class="fas fa-box"></i> Produto/Serviço
+                                            </label>
+                                            <input type="text" name="produto_0" required
+                                                placeholder="Digite o nome do produto ou serviço">
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>
+                                                    <i class="fas fa-hashtag"></i> Quantidade
+                                                </label>
+                                                <input type="number" name="quantidade_0" min="1" value="1" required
+                                                    class="calc-field">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <i class="fas fa-euro-sign"></i> Preço Unitário (AOA)
+                                                </label>
+                                                <input type="number" name="preco_0" step="0.01" min="0" required
+                                                    placeholder="0,00" class="calc-field">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>
+                                                    <i class="fas fa-percentage"></i> Imposto (%)
+                                                </label>
+                                                <input type="number" name="imposto_0" step="0.01" min="0" max="100"
+                                                    value="23" placeholder="23,00" class="calc-field">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <i class="fas fa-tag"></i> Desconto (%)
+                                                </label>
+                                                <input type="number" name="desconto_0" step="0.01" min="0" max="100"
+                                                    value="0" placeholder="0,00" class="calc-field">
+                                            </div>
+                                        </div>
+
+                                        <div class="item-total">
+                                            <strong>Subtotal: AOA<span class="item-subtotal">0,00</span></strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dados da Venda -->
+                                <div class="section-header">
+                                    <h3><i class="fas fa-file-invoice"></i> Dados da Venda</h3>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="data">
+                                            <i class="fas fa-calendar"></i> Data da Venda
+                                        </label>
+                                        <input type="date" id="data" name="data" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="formaPagamento">
+                                            <i class="fas fa-credit-card"></i> Forma de Pagamento
+                                        </label>
+                                        <select id="formaPagamento" name="formaPagamento" required>
+                                            <option value="">Selecione a forma de pagamento</option>
+                                            <option value="dinheiro">Dinheiro</option>
+                                            <option value="cartao_debito">Cartão de Débito</option>
+                                            <option value="cartao_credito">Cartão de Crédito</option>
+                                            <option value="transferencia">Transferência Bancária</option>
+                                            <option value="multibanco">Multibanco</option>
+                                            <option value="cheque">Cheque</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="observacoes">
+                                        <i class="fas fa-comment"></i> Observações (opcional)
+                                    </label>
+                                    <textarea id="observacoes" name="observacoes"
+                                        placeholder="Observações adicionais sobre a venda"></textarea>
+                                </div>
+
+                                <!-- Resumo dos Totais -->
+                                <div class="totals-summary">
+                                    <div class="total-row">
+                                        <span>Subtotal (sem impostos):</span>
+                                        <span>AOA<span id="subtotalSemImpostos">0,00</span></span>
+                                    </div>
+                                    <div class="total-row">
+                                        <span>Total de Impostos:</span>
+                                        <span>AOA<span id="totalImpostos">0,00</span></span>
+                                    </div>
+                                    <div class="total-row">
+                                        <span>Total de Descontos:</span>
+                                        <span>AOA<span id="totalDescontos">0,00</span></span>
+                                    </div>
+                                    <div class="total-row total-final">
+                                        <span><strong>Total Final:</strong></span>
+                                        <span><strong>AOA<span id="totalFinal">0,00</span></strong></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Registar Venda
+                                    </button>
+                                    <button type="reset" class="btn btn-secondary">
+                                        <i class="fas fa-undo"></i> Limpar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vendas Section -->
+            <section id="vendas" class="section">
+                <div class="vendas-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-list"></i> Lista de Vendas</h2>
+                            <div class="header-actions">
+                                <button class="btn btn-outline" id="exportBtn">
+                                    <i class="fas fa-download"></i> Exportar
+                                </button>
+                                <button class="btn btn-danger" id="clearBtn">
+                                    <i class="fas fa-trash"></i> Limpar Tudo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="filters">
+                                <div class="filter-group">
+                                    <label for="filtroCliente">Filtrar por cliente:</label>
+                                    <input type="text" id="filtroCliente" placeholder="Nome do cliente">
+                                </div>
+                                <div class="filter-group">
+                                    <label for="filtroData">Filtrar por data:</label>
+                                    <input type="date" id="filtroData">
+                                </div>
+                                <button class="btn btn-outline" id="limparFiltros">
+                                    <i class="fas fa-times"></i> Limpar Filtros
+                                </button>
+                            </div>
+
+                            <div class="table-container">
+                                <table id="vendasTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Cliente</th>
+                                            <th>NIF</th>
+                                            <th>Itens</th>
+                                            <th>Forma Pagamento</th>
+                                            <th>Total</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="vendasTableBody">
+                                        <tr class="no-data">
+                                            <td colspan="7">Nenhuma venda registada ainda</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 Sistema de Vendas - Desenvolvido para Microempresas</p>
+        </footer>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar Ação</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Tem certeza que deseja realizar esta ação?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="confirmYes">Sim</button>
+                <button class="btn btn-secondary" id="confirmNo">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
