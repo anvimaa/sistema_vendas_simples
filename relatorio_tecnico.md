@@ -1,9 +1,5 @@
 # Relatório Técnico - Mini Protótipo Web para Registo e Visualização de Vendas em Microempresas
 
-**Autor:** Amantente Soft, Comércio e Serviços, LDA  
-**Data:** Agosto, 2025  
-**Versão:** 1.0
-
 ---
 
 ## Resumo Executivo
